@@ -53,111 +53,120 @@ export default function Home() {
     <main className="overflow-hidden">
       <Hero />
       <Clients />
-      <Services />
       <Testimonials />
-      <Newsletter />
+      <Services />
+      
+     
 
       {/* ================= TEST SECTION ================= */}
-     {/* ================= ZEN TEST SECTION ================= */}
-<section className="relative py-28 bg-black overflow-hidden">
+    {/* ================= ULTRA ZEN SECTION ================= */}
+<section className="relative py-32 bg-black overflow-hidden">
 
-  {/* Animated Gradient Background */}
-  <motion.div
-    animate={{
-      background: [
-        "radial-gradient(circle at 20% 30%, #7c3aed22, transparent 40%)",
-        "radial-gradient(circle at 80% 70%, #3b82f622, transparent 40%)",
-        "radial-gradient(circle at 40% 80%, #ec489922, transparent 40%)",
-      ],
-    }}
-    transition={{
-      duration: 10,
-      repeat: Infinity,
-      repeatType: "reverse",
-    }}
-    className="absolute inset-0 blur-3xl"
-  />
-
-  <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={{
-      hidden: { opacity: 0, y: 100 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 1,
-          ease: "easeOut",
-          staggerChildren: 0.2,
-        },
-      },
-    }}
-    className="relative max-w-xl mx-auto px-6"
-  >
-    {/* Heading */}
+  {/* Ambient Energy Orbs */}
+  {[...Array(6)].map((_, i) => (
     <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 },
+      key={i}
+      className="absolute w-72 h-72 rounded-full blur-3xl opacity-20"
+      style={{
+        background: i % 2
+          ? "radial-gradient(circle,#7c3aed,transparent 60%)"
+          : "radial-gradient(circle,#3b82f6,transparent 60%)",
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
       }}
-    >
-      <Typography
-        variant="h4"
-        align="center"
-        sx={{
-          color: "white",
-          mb: 6,
-          fontWeight: "bold",
-          letterSpacing: "2px",
-        }}
-      >
-        ZEN Test Experience
-      </Typography>
-    </motion.div>
-
-    {/* Floating Glass Card */}
-    <motion.div
-      animate={{ y: [0, -10, 0] }}
+      animate={{
+        x: [0, Math.random() * 80 - 40, 0],
+        y: [0, Math.random() * 80 - 40, 0],
+      }}
       transition={{
-        duration: 4,
+        duration: 12 + Math.random() * 10,
         repeat: Infinity,
         ease: "easeInOut",
       }}
-      whileHover={{ scale: 1.05 }}
-      className="relative"
+    />
+  ))}
+
+  <motion.div
+    initial={{ opacity: 0, y: 120 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1.2, ease: "easeOut" }}
+    viewport={{ once: true }}
+    className="relative max-w-xl mx-auto px-6 perspective-[1200px]"
+  >
+
+    {/* Title */}
+    <motion.h2
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="text-center text-white text-3xl font-bold tracking-widest mb-10"
+    >
+      ZEN INTERFACE
+    </motion.h2>
+
+    {/* 3D Glass Card */}
+    <motion.div
+      onMouseMove={(e) => {
+        const card = e.currentTarget
+        const rect = card.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const centerX = rect.width / 2
+        const centerY = rect.height / 2
+        const rotateX = -(y - centerY) / 25
+        const rotateY = (x - centerX) / 25
+        card.style.transform =
+          `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform =
+          "rotateX(0deg) rotateY(0deg)"
+      }}
+      animate={{ y: [0, -12, 0] }}
+      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      className="relative transition-transform duration-200"
+      style={{ transformStyle: "preserve-3d" }}
     >
       <Card
         sx={{
-          background: "rgba(255,255,255,0.05)",
-          backdropFilter: "blur(20px)",
+          background: "linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))",
+          backdropFilter: "blur(25px)",
           borderRadius: 4,
           color: "white",
-          border: "1px solid rgba(255,255,255,0.1)",
-          boxShadow: "0 0 40px rgba(124,58,237,0.3)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          boxShadow:
+            "0 40px 120px rgba(124,58,237,0.35)",
         }}
       >
-        <CardContent>
+        <CardContent sx={{ position: "relative" }}>
+          {/* Light reflection */}
+          <motion.div
+            animate={{ opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute inset-0 rounded-xl"
+            style={{
+              background:
+                "linear-gradient(120deg,transparent 40%,rgba(255,255,255,0.15),transparent 60%)",
+            }}
+          />
+
           <Typography variant="h6" gutterBottom>
-            Next-Level UI ✨
+            Living Interface ✨
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ color: "#9ca3af", mb: 4 }}
+            sx={{ color: "#cbd5f5", mb: 4 }}
           >
-            Modern glassmorphism with floating animation,
-            gradient glow and smooth motion effects.
+            This UI reacts to your presence — light, depth and
+            motion feel organic, calm and intelligent.
           </Typography>
 
           {/* Magnetic Button */}
           <motion.div
-            whileHover={{
-              scale: 1.1,
-              boxShadow: "0px 0px 20px rgba(124,58,237,0.8)",
-            }}
+            whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.95 }}
+            className="inline-block"
           >
             <Button
               variant="contained"
@@ -166,13 +175,14 @@ export default function Home() {
                   "linear-gradient(90deg,#7c3aed,#3b82f6)",
                 borderRadius: "999px",
                 px: 4,
-                py: 1.2,
+                py: 1.3,
                 fontWeight: "bold",
                 textTransform: "none",
-                transition: "0.3s",
+                boxShadow:
+                  "0 0 30px rgba(124,58,237,0.8)",
               }}
             >
-              Explore Now
+              Enter Experience
             </Button>
           </motion.div>
         </CardContent>
@@ -180,6 +190,8 @@ export default function Home() {
     </motion.div>
   </motion.div>
 </section>
+{/* ================================================= */}
+
 {/* ================================================= */}
 
 {/* ================================================= */}
