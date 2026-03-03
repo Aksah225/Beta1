@@ -7,6 +7,10 @@ import Services from "./components/Services";
 import Testimonials from "./components/Testimonials";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+import PricingCard from "./components/Card"; // ✅ custom card
+import FAQs from "./components/FAQs"; // 👈 add this
+import ClickGame from "./components/ClickGame";
+
 import { motion } from "framer-motion";
 
 import {
@@ -24,7 +28,6 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
 
-  // ✅ FIXED ORBS STATE
   const [orbs, setOrbs] = useState<
     {
       top: string;
@@ -84,10 +87,11 @@ export default function Home() {
       <Testimonials />
       <Services />
 
+      {/* ✅ Your Custom Pricing Card Component */}
+      <PricingCard />
+
       {/* ================= ULTRA ZEN SECTION ================= */}
       <section className="relative py-32 bg-black overflow-hidden">
-
-        {/* ✅ FIXED ORBS RENDER */}
         {orbs.map((orb, i) => (
           <motion.div
             key={i}
@@ -112,93 +116,43 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 120 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 1.2 }}
           viewport={{ once: true }}
-          className="relative max-w-xl mx-auto px-6 perspective-[1200px]"
+          className="relative max-w-xl mx-auto px-6"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-center text-white text-3xl font-bold tracking-widest mb-10"
-          >
-            ZEN INTERFACE
-          </motion.h2>
-
-          <motion.div
-            onMouseMove={(e) => {
-              const card = e.currentTarget;
-              const rect = card.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              const centerX = rect.width / 2;
-              const centerY = rect.height / 2;
-              const rotateX = -(y - centerY) / 25;
-              const rotateY = (x - centerX) / 25;
-              card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          <Card
+            sx={{
+              background:
+                "linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))",
+              backdropFilter: "blur(25px)",
+              borderRadius: 4,
+              color: "white",
+              border: "1px solid rgba(255,255,255,0.15)",
+              boxShadow: "0 40px 120px rgba(124,58,237,0.35)",
             }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "rotateX(0deg) rotateY(0deg)";
-            }}
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative transition-transform duration-200"
-            style={{ transformStyle: "preserve-3d" }}
           >
-            <Card
-              sx={{
-                background:
-                  "linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))",
-                backdropFilter: "blur(25px)",
-                borderRadius: 4,
-                color: "white",
-                border: "1px solid rgba(255,255,255,0.15)",
-                boxShadow: "0 40px 120px rgba(124,58,237,0.35)",
-              }}
-            >
-              <CardContent sx={{ position: "relative" }}>
-                <motion.div
-                  animate={{ opacity: [0.1, 0.3, 0.1] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute inset-0 rounded-xl"
-                  style={{
-                    background:
-                      "linear-gradient(120deg,transparent 40%,rgba(255,255,255,0.15),transparent 60%)",
-                  }}
-                />
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Living Interface ✨
+              </Typography>
 
-                <Typography variant="h6" gutterBottom>
-                  Living Interface ✨
-                </Typography>
+              <Typography variant="body2" sx={{ color: "#cbd5f5", mb: 4 }}>
+                This UI reacts to your presence — light, depth and motion feel
+                organic, calm and intelligent.
+              </Typography>
 
-                <Typography variant="body2" sx={{ color: "#cbd5f5", mb: 4 }}>
-                  This UI reacts to your presence — light, depth and motion feel
-                  organic, calm and intelligent.
-                </Typography>
-
-                <motion.div
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-block"
-                >
-                  <Button
-                    variant="contained"
-                    sx={{
-                      background: "linear-gradient(90deg,#7c3aed,#3b82f6)",
-                      borderRadius: "999px",
-                      px: 4,
-                      py: 1.3,
-                      fontWeight: "bold",
-                      textTransform: "none",
-                      boxShadow: "0 0 30px rgba(124,58,237,0.8)",
-                    }}
-                  >
-                    Enter Experience
-                  </Button>
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
+              <Button
+                variant="contained"
+                sx={{
+                  background: "linear-gradient(90deg,#7c3aed,#3b82f6)",
+                  borderRadius: "999px",
+                  textTransform: "none",
+                }}
+              >
+                Enter Experience
+              </Button>
+            </CardContent>
+          </Card>
         </motion.div>
       </section>
 
@@ -253,15 +207,7 @@ export default function Home() {
               rows={4}
             />
 
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{
-                mt: 1,
-                backgroundColor: "#3b82f6",
-                "&:hover": { backgroundColor: "#2563eb" },
-              }}
-            >
+            <Button type="submit" variant="contained">
               Send Message
             </Button>
 
@@ -273,8 +219,9 @@ export default function Home() {
           </Box>
         </div>
       </section>
-
+<ClickGame />
       <Newsletter />
+        <FAQs /> 
       <Footer />
     </main>
   );
